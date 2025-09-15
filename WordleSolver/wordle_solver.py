@@ -1,9 +1,16 @@
 from typing import Optional, Literal, Union
-from colorama import Fore, Style # pip install colorama
+try:
+    from colorama import Fore, Style # pip install colorama
+    colorama_available = True
+except ImportError:
+    print("colorama not found, please install it with 'pip install colorama'")
+    print("Continuing without color support.")
+    colorama_available = False
+    
 import re
 from threading import Thread
 
-NUMBER_OF_THREADS = 8
+NUMBER_OF_THREADS = 8 # Adjust based on your machine's core count and performance considerations    
 
 class Row:
     # Example word: "crane"
@@ -35,11 +42,20 @@ class Row:
         colored_word = ""
         for letter, status in self.separated_word:
             if status == "correct":
-                colored_word += Fore.GREEN + letter.upper() + Style.RESET_ALL
+                if colorama_available:
+                    colored_word += Fore.GREEN + letter.upper() + Style.RESET_ALL
+                else:
+                    colored_word += letter.upper()
             elif status == "misplaced":
-                colored_word += Fore.YELLOW + letter.lower() + Style.RESET_ALL
+                if colorama_available:
+                    colored_word += Fore.YELLOW + letter.lower() + Style.RESET_ALL
+                else:
+                    colored_word += letter.lower() + "?"
             else:
-                colored_word += Fore.RED + letter.lower() + Style.RESET_ALL
+                if colorama_available:
+                    colored_word += Fore.RED + letter.lower() + Style.RESET_ALL
+                else:
+                    colored_word += letter.lower()
         return colored_word
 
 class WordleSolver:

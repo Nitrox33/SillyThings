@@ -1,0 +1,9 @@
+To use the wordle_solver:
+
+1. Install a python interpreter
+2. Install colorama (not required but better readability)
+3. python wordle_solver.py
+
+Warning:
+    Not optimised !
+    Watchout if the world is not filted enough when you try to find it. (need more optimization but.. you know)
