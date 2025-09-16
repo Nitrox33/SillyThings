@@ -11,8 +11,12 @@ except ImportError:
 import re
 from threading import Thread
 
-NUMBER_OF_THREADS = 8 # Adjust based on your machine's core count and performance considerations    
+NUMBER_OF_THREADS = 8 # Adjust based on your machine's core count and performance considerations
 
+PATH = pathlib.Path(__file__).parent / "output_words.txt"
+if not PATH.exists():
+    raise FileNotFoundError(f"Word list file not found at {PATH}. Please ensure 'output_words.txt' is present.")
+        
 class Row:
     # Example word: "crane"
     # if a letter is correctly placed, we put it in uppercase
@@ -106,8 +110,7 @@ class WordleSolver:
     def find_closest_words(self):
         possible_letters, letters_in_word = self.calculate_possible_letters()
         possible_words = self.calculate_all_possibilities(possible_letters)
-        path = pathlib.Path(__file__).parent / "output_words.txt"
-        with open(path, "r") as f:
+        with open(PATH, "r") as f:
             word_list = [line.strip() for line in f.readlines()]
     
         
