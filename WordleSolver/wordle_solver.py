@@ -1,4 +1,5 @@
 from typing import Optional, Literal, Union
+import pathlib
 try:
     from colorama import Fore, Style # pip install colorama
     colorama_available = True
@@ -105,7 +106,8 @@ class WordleSolver:
     def find_closest_words(self):
         possible_letters, letters_in_word = self.calculate_possible_letters()
         possible_words = self.calculate_all_possibilities(possible_letters)
-        with open("output_words.txt", "r") as f:
+        path = pathlib.Path(__file__).parent / "output_words.txt"
+        with open(path, "r") as f:
             word_list = [line.strip() for line in f.readlines()]
     
         
