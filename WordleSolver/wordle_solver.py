@@ -148,9 +148,10 @@ if __name__ == "__main__":
     print("4. Enter '-' to remove the last row.")
     print("5. Enter 'q' to quit.")
     print("6. Press Enter on an empty line to get possible words.")
+    print("7. Put '&' and press Enter to get possible combinations")
 
     while True:
-        row = input(">: ")
+        row = input(">: ")  
         if row == "-":
             print("Current rows:")
             for r in solver.rows:
@@ -166,6 +167,14 @@ if __name__ == "__main__":
             print("Possible words: ({} found)".format(len(possible_words)))
             for w in possible_words:
                 print(w)
+        elif row == "&":
+            possible_letters, letters_in_word = solver.calculate_possible_letters()
+            possible_words = solver.calculate_all_possibilities(possible_letters)
+            print("Possible combinations: ({} found)".format(len(possible_words)))
+            A = input("Do you want to see all combinations? (y/n): ")
+            if A.lower() == 'y':
+                for w in possible_words:
+                    print(w)
         else:
             if not re.match(r"^[a-z?A-Z]{5,10}$", row):
                 print("Invalid row format. Please try again.")
