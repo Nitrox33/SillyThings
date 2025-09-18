@@ -16,7 +16,7 @@ services:
     image: mysql:latest
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: example_password
+      MYSQL_ROOT_PASSWORD: example_password #TODO: CHANGE
       MYSQL_DATABASE: food_db
     volumes:
       - db_data:/var/lib/mysql
